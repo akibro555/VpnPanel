@@ -1,0 +1,12 @@
+@import helper._
+@(head: Html = Html(""))(content: Html)(tail: Html = Html(""))(implicit requestHeader: RequestHeader, messages: Messages, pageMeta: PageMeta, wja: WebJarAssets)
+@base {
+  <link href="@routes.Assets.versioned("styles/public.css")" rel="stylesheet">
+  @head
+} {
+  @content
+  <script src="@routes.WebJarAssets.at(wja.locate("jquery.min.js"))"></script>
+  <script src="@routes.WebJarAssets.at(wja.locate("foundation.js"))"></script>
+  <!-- <script src="@routes.Assets.versioned("scripts/main.js")"></script> -->
+  @tail
+}

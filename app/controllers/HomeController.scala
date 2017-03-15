@@ -15,7 +15,11 @@ class HomeController @Inject() (
   implicit val wja: WebJarAssets
 ) extends Controller with I18nSupport with PageMetaSupport with security.Secure {
 
-  def index = UserSecureAction(Admin).async { requests =>
-    Future.successful(Ok(s"${requests}"))
+  def index = UserSecureAction(Admin).async { implicit requests =>
+    Future.successful(Ok(views.html.loginPage()))
+  }
+
+  def login = UserSecureAction(Admin).async { implicit requests =>
+    Future.successful(Ok(views.html.loginPage()))
   }
 }

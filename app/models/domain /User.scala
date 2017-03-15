@@ -3,30 +3,22 @@ package models.domain
 import play.api.libs.json._
 
 case class User(
-    firstName: String,
-    lastName: String,
-    address: String,
-    gender: String,
-    position: String,
-    credits: Int,
-    createdBy: String,
-    foreignKey: Option[Int] = None,
-    id: Option[Int]) {
+    userName: String,
+    password: String,
+    credits: String,
+    createdBy: Option[String] = None) {
   def toJson: JsObject = User.Implicits.userImplicits.writes(this).as[JsObject]
 }
 
 object User {
+  val tupled = (apply _).tupled
   object Implicits {
     implicit val userImplicits = new Writes[User] {
       def writes(user: User): JsValue = Json.obj(
-        "first_name" -> user.firstName,
-        "last_name" -> user.lastName,
-        "address" -> user.address,
-        "gender" -> user.gender,
-        "position" -> user.position,
+        "user_name" -> user.userName,
+        "password" -> user.password,
         "credits" -> user.credits,
-        "created_by" -> user.createdBy,
-        "id" -> user.id.get)
+        "created_by" -> user.createdBy)
     }
   }
 }

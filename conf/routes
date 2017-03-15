@@ -4,6 +4,7 @@
 
 # A home page
 GET   /                           controllers.HomeController.index
+GET   /login                      controllers.HomeController.login
 
 # Web jars asset
 GET   /assets/libs/*file          controllers.WebJarAssets.at(file)
