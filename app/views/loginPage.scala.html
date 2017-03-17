@@ -30,7 +30,7 @@
     </div>
   </div>
 } {
-<script>
+<script type="text/javascript">
   // Create an array to store our particles
 var particles = [];
 
@@ -53,12 +53,13 @@ var imageObj = new Image();
 // Once the image has been downloaded then set the image on all of the particles
 imageObj.onload = function() {
     particles.forEach(function(particle) {
-            particle.setImage(imageObj);
+        particle.setImage(imageObj);
     });
 };
 
 // Once the callback is arranged then set the source of the image
 imageObj.src = "http://www.blog.jonnycornwell.com/wp-content/uploads/2012/07/Smoke10.png";
+// imageObj.src = "http://i.imgur.com/YgnjqTy.gif"
 
 // A function to create a particle object.
 function Particle(context) {
@@ -177,8 +178,8 @@ function init() {
 // The function to draw the scene
 function draw() {
     // Clear the drawing surface and fill it with a black background
-    context.fillStyle = "rgba(0, 0, 0, 0)";
-    context.fillRect(0, 0, 400, 400);
+    // context.fillStyle = "rgba(188, 93, 42, 0)";
+    // context.fillRect(0, 0, 0, 0);
 
     // Go through all of the particles and draw them.
     particles.forEach(function(particle) {
@@ -205,6 +206,12 @@ if (context) {
         // Draw the scene
         draw();
     }, 1000 / targetFPS);
+}
+
+function draws() {
+  var ctx = document.getElementById('myCanvas').getContext('2d');
+  ctx.font = '48px serif';
+  ctx.strokeText('V.P.N', 10, 50);
 }
 </script>
 }

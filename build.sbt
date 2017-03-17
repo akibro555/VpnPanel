@@ -14,6 +14,7 @@ libraryDependencies ++= Seq(
   "org.webjars" % "jquery" % "2.2.2",
   "org.webjars" % "foundation" % "6.2.0",
   "org.typelevel" %% "cats" % "0.8.1",
+  "mysql" % "mysql-connector-java" % "6.0.5",
   "com.typesafe.slick" %% "slick" % "3.1.1",
   "com.typesafe.play" %% "play-slick" % "2.0.2",
   "com.typesafe.play" %% "play-slick-evolutions" % "2.0.2",

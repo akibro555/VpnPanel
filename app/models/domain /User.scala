@@ -3,9 +3,10 @@ package models.domain
 import play.api.libs.json._
 
 case class User(
+    id: Option[Int],
     userName: String,
     password: String,
-    credits: String,
+    credits: Int,
     createdBy: Option[String] = None) {
   def toJson: JsObject = User.Implicits.userImplicits.writes(this).as[JsObject]
 }
