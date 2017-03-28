@@ -1,11 +1,13 @@
 package models.domain
 
 import play.api.libs.json._
+import security.Permissions._
 
 case class User(
-    id: Option[Int],
+    id: Option[java.util.UUID],
     userName: String,
     password: String,
+    `type`: Permissions,
     credits: Int,
     createdBy: Option[String] = None) {
   def toJson: JsObject = User.Implicits.userImplicits.writes(this).as[JsObject]
@@ -19,6 +21,7 @@ object User {
         "user_name" -> user.userName,
         "password" -> user.password,
         "credits" -> user.credits,
+        "type" -> user.credits,
         "created_by" -> user.createdBy)
     }
   }

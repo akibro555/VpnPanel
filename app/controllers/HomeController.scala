@@ -19,13 +19,17 @@ class HomeController @Inject() (
   implicit val ec: scala.concurrent.ExecutionContext
 ) extends Controller with I18nSupport with PageMetaSupport with security.Secure {
 
-  def index = UserSecureAction(Admin).async { implicit requests =>
-    userRepo.getAll map {
+  def index = UserSecureAction(ADMIN).async { implicit requests =>
+    userRepo.all map {
       r => Ok(Json.obj("users" -> r.map(_.toJson)))
     }
   }
 
-  def login = UserSecureAction(Admin).async { implicit requests =>
+  def loginPage = Action.async { implicit requests =>
     Future.successful(Ok(views.html.loginPage()))
+  }
+
+  def loginAction = Action.async {
+    Future.successful(Ok("Test"))
   }
 }

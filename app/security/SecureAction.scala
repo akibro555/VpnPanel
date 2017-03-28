@@ -7,7 +7,7 @@ trait Secure {
     def apply(Role: Permissions.Value) = invokeSecuredBlock(Role)
 
     def invokeSecuredBlock(Role: Permissions.Value) = {
-      new SecureActionBuilder(Role, "Admin")
+      new SecureActionBuilder(true)
     }
   }
 }
