@@ -1,13 +1,17 @@
 package security
 
 import play.api._
+import models.repo.UserRepo
+import scala.concurrent.ExecutionContext
 
 trait Secure {
   object UserSecureAction {
-    def apply(Role: Permissions.Value) = invokeSecuredBlock(Role)
+    def apply(Role: Permissions.Value)(implicit ec: ExecutionContext) = {
+      invokeSecuredBlock(Role)
+    }
 
-    def invokeSecuredBlock(Role: Permissions.Value) = {
-      new SecureActionBuilder(true)
+    def invokeSecuredBlock(Role: Permissions.Value)(implicit ec: ExecutionContext) = {
+      new SecureActionBuilder(Role)
     }
   }
 }
