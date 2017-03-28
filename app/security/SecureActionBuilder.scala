@@ -24,3 +24,5 @@ class SecureActionBuilder(Role: Permissions)
     } getOrElse { Future.successful(Forbidden) }
   }
 }
+
+

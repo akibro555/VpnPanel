@@ -6,9 +6,11 @@ import play.api._
 import play.api.mvc._
 import play.api.i18n.{ I18nSupport, MessagesApi }
 import ejisan.play.libs.{ PageMetaSupport, PageMetaApi }
+import play.api.data.Forms._
+import play.api.data._
 import security.Permissions._
 import play.api.libs.json._
-import models.domain.User.Implicits._
+import models.domain.User
 
 @Singleton
 class HomeController @Inject() (
@@ -18,6 +20,10 @@ class HomeController @Inject() (
   implicit val wja: WebJarAssets,
   implicit val ec: scala.concurrent.ExecutionContext
 ) extends Controller with I18nSupport with PageMetaSupport with security.Secure {
+  import User.Implicits._
+  private val lgnForm = Form(tuple(
+    "username" -> nonEmptyText(minLength=1),
+    "password" -> nonEmptyText(minLength=4)))
 
   def index = UserSecureAction(ADMIN).async { implicit requests =>
     userRepo.all map {
@@ -29,7 +35,11 @@ class HomeController @Inject() (
     Future.successful(Ok(views.html.loginPage()))
   }
 
-  def loginAction = Action.async {
-    Future.successful(Ok("Test"))
+  def loginAction = Action.async { implicit requests =>
+    lgnForm.bindFromRequest.fold(
+      formWithErrors => Future.successful(BadRequest(formWithErrors.errorsAsJson)),
+      { case (username, password) =>
+          userRepo.get(username, password).map(user => Ok(Json.obj("user" -> user.map(_.toJson))))
+      })
   }
 }
