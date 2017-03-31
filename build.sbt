@@ -9,7 +9,6 @@ scalaVersion := "2.11.8"
 // Web Jars Dependencies
 libraryDependencies ++= Seq(
   "com.ejisan" %% "play-pagemeta" % "1.2.1",
-  "com.ejisan" %% "play-form" % "2.0.2",
   "org.webjars" % "webjars-play_2.11" % "2.5.0",
   "org.webjars" % "jquery" % "2.2.2",
   "org.webjars" % "foundation" % "6.2.0",
