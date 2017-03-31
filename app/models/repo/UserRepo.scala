@@ -5,6 +5,7 @@ import scala.concurrent.Future
 import slick.profile.RelationalProfile
 import play.api.db.slick.{ DatabaseConfigProvider, HasDatabaseConfigProvider }
 import models.domain.User
+import cats.data.OptionT
 import security.Permissions._
 
 @Singleton
@@ -16,8 +17,8 @@ class UserRepo @Inject()(
 
   def all: Future[Seq[User]] = db.run(dao.query.result)
 
-  def get(username: String, password: String): Future[Option[User]] =
-    db.run(dao.query(username, password).result.headOption)
+  def get(username: String, password: String): OptionT[Future, User] =
+    OptionT(db.run(dao.query(username, password).result.headOption))
 
   def add(user: User): Future[Int] = db.run(dao.query += user)
 

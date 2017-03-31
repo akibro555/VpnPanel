@@ -12,6 +12,8 @@ import security.Permissions._
 import play.api.libs.json._
 import models.domain.User
 import security.{ Secure }
+import cats.implicits._
+
 
 @Singleton
 class HomeController @Inject() (
@@ -40,7 +42,9 @@ class HomeController @Inject() (
     lgnForm.bindFromRequest.fold(
       formWithErrors => Future.successful(BadRequest(formWithErrors.errorsAsJson)),
       { case (username, password) =>
-          userRepo.get(username, password).map(user => Ok(Json.obj("user" -> user.map(_.toJson))))
+          userRepo.get(username, password)
+            .map(user => Ok("success"))
+            .getOrElse(BadRequest)
       })
   }
 }
