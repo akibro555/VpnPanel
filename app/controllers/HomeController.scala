@@ -11,15 +11,16 @@ import play.api.data._
 import security.Permissions._
 import play.api.libs.json._
 import models.domain.User
+import security.{ Secure }
 
 @Singleton
 class HomeController @Inject() (
-  userRepo: models.repo.UserRepo,
+  protected val userRepo: models.repo.UserRepo,
   val messagesApi: MessagesApi,
   val pageMetaApi: PageMetaApi,
   implicit val wja: WebJarAssets,
   implicit val ec: scala.concurrent.ExecutionContext
-) extends Controller with I18nSupport with PageMetaSupport with security.Secure {
+) extends Controller with I18nSupport with PageMetaSupport with Secure {
   import User.Implicits._
   private val lgnForm = Form(tuple(
     "username" -> nonEmptyText(minLength=1),

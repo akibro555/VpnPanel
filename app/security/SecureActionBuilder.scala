@@ -9,9 +9,8 @@ import Permissions._
 import models.repo.UserRepo
 
 @Singleton
-class SecureActionBuilder(Role: Permissions)
+class SecureActionBuilder(Role: Permissions, user: UserRepo)
   (implicit ec: ExecutionContext) extends ActionBuilder[Request] {
-  private val user: UserRepo = ???
 
   def check(role: Permissions, id: java.util.UUID) = user.getType(id, role)
 
@@ -24,5 +23,3 @@ class SecureActionBuilder(Role: Permissions)
     } getOrElse { Future.successful(Forbidden) }
   }
 }
-
-
